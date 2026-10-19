@@ -10,17 +10,17 @@ Put this repository at `~/.config/nvim` and run `nvim`. The first launch install
 
 ## Where to change things
 
-| File | Purpose |
-| --- | --- |
-| `lazyvim.json` | Enabled LazyVim extras; use `:LazyExtras` to manage them. |
-| `lua/config/options.lua` | Editor choices that must be set before plugins load. |
-| `lua/config/features.lua` | Switches for optional local features. |
-| `lua/config/lazy.lua` | lazy.nvim bootstrap and shared defaults. |
-| `colors/oxocarbon.lua` | Entry point for `:colorscheme oxocarbon`. |
-| `lua/oxocarbon/` | Local theme highlights, palette, and color utilities. |
-| `lua/lualine/themes/oxocarbon.lua` | Matching statusline theme. |
-| `lua/plugins/init.lua` | Imports the core, editor, language, and enabled optional specs. |
-| `lua/plugins/{core,editor,languages,optional}/` | Plugin specs and overrides, grouped by purpose. |
+| File                                            | Purpose                                                         |
+| ----------------------------------------------- | --------------------------------------------------------------- |
+| `lazyvim.json`                                  | Enabled LazyVim extras; use `:LazyExtras` to manage them.       |
+| `lua/config/options.lua`                        | Editor choices that must be set before plugins load.            |
+| `lua/config/features.lua`                       | Switches for optional local features.                           |
+| `lua/config/lazy.lua`                           | lazy.nvim bootstrap and shared defaults.                        |
+| `colors/oxocarbon.lua`                          | Entry point for `:colorscheme oxocarbon`.                       |
+| `lua/oxocarbon/`                                | Local theme highlights, palette, and color utilities.           |
+| `lua/lualine/themes/oxocarbon.lua`              | Matching statusline theme.                                      |
+| `lua/plugins/init.lua`                          | Imports the core, editor, language, and enabled optional specs. |
+| `lua/plugins/{core,editor,languages,optional}/` | Plugin specs and overrides, grouped by purpose.                 |
 
 The enabled extras are TypeScript, JSON, Telescope, and mini.starter. Local specs add or adjust the theme, completion, explorer, formatting, language servers, Treesitter parsers, database tools, and Git UI.
 
@@ -46,13 +46,13 @@ For a plugin already provided by LazyVim, add a spec with the same plugin name t
 
 ## Local shortcuts
 
-| Keys | Action |
-| --- | --- |
-| `<leader>e` | Focus or open Snacks Explorer. |
-| `<leader>E` | Toggle Snacks Explorer. |
+| Keys         | Action                                           |
+| ------------ | ------------------------------------------------ |
+| `<leader>e`  | Focus or open Snacks Explorer.                   |
+| `<leader>E`  | Toggle Snacks Explorer.                          |
 | `<leader>fp` | Find files in the plugin installation directory. |
-| `<leader>gg` | Open LazyGit. |
-| `<leader>D` | Toggle the database UI. |
+| `<leader>gg` | Open LazyGit.                                    |
+| `<leader>D`  | Toggle the database UI.                          |
 
 The explorer also opens after startup without taking editor focus. For the remaining shortcuts and defaults, see [LazyVim's keymap documentation](https://lazyvim.github.io/keymaps).
 
