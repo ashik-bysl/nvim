@@ -19,12 +19,26 @@ Put this repository at `~/.config/nvim` and run `nvim`. The first launch install
 | `colors/oxocarbon.lua`                          | Entry point for `:colorscheme oxocarbon`.                       |
 | `lua/oxocarbon/`                                | Local theme highlights, palette, and color utilities.           |
 | `lua/lualine/themes/oxocarbon.lua`              | Matching statusline theme.                                      |
+| `lua/dbfmt/`                                    | Local formatter for PostgreSQL, CQL, MongoDB, JSON, and Redis.  |
 | `lua/plugins/init.lua`                          | Imports the core, editor, language, and enabled optional specs. |
 | `lua/plugins/{core,editor,languages,optional}/` | Plugin specs and overrides, grouped by purpose.                 |
 
 The enabled extras are TypeScript, JSON, Telescope, and mini.starter. Local specs add or adjust the theme, completion, explorer, formatting, language servers, Treesitter parsers, database tools, and Git UI.
 
 The formatting module uses Conform with Go imports, Black for Python, rustfmt for Rust, and Prettier for web files. The Proto module uses the Buf CLI for `.proto` completion, diagnostics, navigation, and formatting; it also recognizes Buf configuration files. The GraphQL module adds syntax, completion, diagnostics, and Prettier formatting. GraphQL language services require a project GraphQL config and the `graphql` package. Inspect `:ConformInfo` and `:LspInfo` when a formatter or server does not attach.
+
+The `dbfmt` plugin (`lua/dbfmt/`, enabled by `lua/plugins/languages/dbfmt.lua`) formats SQL and NoSQL without any external tool, and registers itself with Conform, so `<leader>cf` and format-on-save use it. It claims these filetypes:
+
+| Filetype                         | Dialect       | Notes                                                                               |
+| -------------------------------- | ------------- | ----------------------------------------------------------------------------------- |
+| `sql`, `pgsql`                   | PostgreSQL    | Dollar quoting, `::` casts, `$1` parameters, JSON operators, `ON CONFLICT`.         |
+| `cqlang`                         | Cassandra CQL | The SQL engine with CQL keywords.                                                   |
+| `mongodb` (`.mongodb`, `.mongo`) | MongoDB shell | Queries, aggregation pipelines, extended JSON; function bodies are kept as written. |
+| `redis` (`.redis`)               | Redis         | One command per line, command names upper-cased.                                    |
+
+Run `:DbFormat [dialect]` on the buffer or a visual range to force a dialect, for example `:DbFormat json` on a JSON document. Dialects are `postgres`, `cql`, `mongo`, `json`, and `redis`. Invalid input (an unbalanced parenthesis, an unterminated string) is reported and the buffer is left unchanged. Options such as `keyword_case`, `line_width`, and `document_style` go in the `opts` table of `lua/plugins/languages/dbfmt.lua`. The indent follows `shiftwidth`. Run the tests with `nvim -l tests/dbfmt_spec.lua`.
+
+A local plugin whose code lives in this repository is declared as a `virtual = true` spec. Do not point two specs at `dir = stdpath("config")`: lazy.nvim merges specs with the same `dir` into one plugin.
 
 To add a plugin, create a Lua file in the relevant `lua/plugins/` group that returns a lazy.nvim spec. New plugins need a load trigger because this configuration sets `defaults.lazy = true`:
 
